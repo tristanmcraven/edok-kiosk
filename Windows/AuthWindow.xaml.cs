@@ -25,12 +25,15 @@ namespace edok_kiosk.Windows
             InitializeComponent();
         }
 
-        private void logIn_Button_Click(object sender, RoutedEventArgs e)
+        private async void logIn_Button_Click(object sender, RoutedEventArgs e)
         {
+            string login = login_TextBox.Text;
+            string password = passwordBox.Password;
 
+            await Authenticate(login, password);
         }
 
-        private async void Authenticate(string login, string password)
+        private async Task Authenticate(string login, string password)
         {
             if (string.IsNullOrEmpty(login) ||
                 string.IsNullOrEmpty(password))
@@ -45,7 +48,8 @@ namespace edok_kiosk.Windows
                 return;
             }
             GlobalViewModel.Manager = manager;
-            GlobalViewModel.
+            GlobalViewModel.Restaurant = await ApiClient.JManager.GetLatestRestaurantById(manager.Id);
+            new MainWindow().Show();
         }
     }
 }

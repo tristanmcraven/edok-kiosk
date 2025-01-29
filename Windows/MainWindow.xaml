@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:edok_kiosk.Windows"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Киоск" Height="450" Width="800"
+        WindowState="Maximized"
+        WindowStyle="None">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="75*" />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollViewer x:Name="orders_ScrollViewer"
+                          ScrollViewer.CanContentScroll="False">
+                <StackPanel x:Name="orders_StackPanel"
+                            Orientation="Vertical">
+                    
+                </StackPanel>
+            </ScrollViewer>
+            
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="1">
+                <Button x:Name="logOut_Button"
+                        Content="Сменить пользователя"
+                        Click="logOut_Button_Click" />
+                <Button x:Name="exit_Button"
+                        Content="Выйти"
+                        Click="exit_Button_Click" />
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </Window>

@@ -25,7 +25,7 @@ namespace edok_kiosk.Utility
             }
 
             var response = await httpClient.SendAsync(request);
-            if (response.IsSuccessStatusCode) return null;
+            if (!response.IsSuccessStatusCode) return default;
 
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(content);
@@ -54,12 +54,12 @@ namespace edok_kiosk.Utility
                     Login = login,
                     Password = password
                 };
-                return await SendRequest<Manager?>("manager", HttpMethod.Post, dto);
+                return await SendRequest<Manager?>("manager/login", HttpMethod.Post, dto);
             }
 
             public static async Task<List<Restaurant>?> GetRestaurantsById(uint id) => await SendRequest<List<Restaurant>>($"manager/{id}/restaurants", HttpMethod.Get);
 
-            public static async Task<Restaurant?> GetLatestRestaurantById(uint id) => (await )
+            public static async Task<Restaurant?> GetLatestRestaurantById(uint id) => (await SendRequest<List<Restaurant>>($"manager/{id}/restaurants", HttpMethod.Get))!.FirstOrDefault();
         }
     }
 }

@@ -23,5 +23,26 @@ namespace edok_kiosk.Windows
         {
             InitializeComponent();
         }
+
+        private void logOut_Button_Click(object sender, RoutedEventArgs e)
+        {
+            LogOut();
+        }
+
+        private void exit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Exit();
+        }
+
+        private void LogOut()
+        {
+            new AuthWindow().Show();
+            this.Close();
+        }
+
+       private void Exit()
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
