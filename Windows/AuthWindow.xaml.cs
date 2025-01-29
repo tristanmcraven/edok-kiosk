@@ -1,4 +1,5 @@
-﻿using System;
+﻿using edok_kiosk.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,29 @@ namespace edok_kiosk.Windows
         public AuthWindow()
         {
             InitializeComponent();
+        }
+
+        private void logIn_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void Authenticate(string login, string password)
+        {
+            if (string.IsNullOrEmpty(login) ||
+                string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var manager = await ApiClient.JManager.Authenticate(login, password);
+            if (manager == null)
+            {
+                MessageBox.Show("Неправильное имя пользователя или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            GlobalViewModel.Manager = manager;
+            GlobalViewModel.
         }
     }
 }
