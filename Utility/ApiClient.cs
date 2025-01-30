@@ -45,7 +45,7 @@ namespace edok_kiosk.Utility
             return response.IsSuccessStatusCode;
         }
 
-        public static class JManager
+        public static class _Manager
         {
             public static async Task<Manager?> Authenticate(string login, string password)
             {
@@ -61,5 +61,21 @@ namespace edok_kiosk.Utility
 
             public static async Task<Restaurant?> GetLatestRestaurantById(uint id) => (await SendRequest<List<Restaurant>>($"manager/{id}/restaurants", HttpMethod.Get))!.FirstOrDefault();
         }
+
+        public static class _Restaurant
+        {
+            public static async Task<List<Order>> GetActiveOrders(uint id)
+            {
+                return await SendRequest<List<Order>>($"restaurant/{id}/orders/active", HttpMethod.Get);
+            }
+        }
+
+        //public static class _Order
+        //{
+        //    public static async Task<List<Order>> GetActiveOrders(uint id)
+        //    {
+        //        return await SendRequest<List<Order>>("restaurant")
+        //    }
+        //}
     }
 }

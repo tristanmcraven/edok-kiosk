@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Киоск" Height="450" Width="800"
         WindowState="Maximized"
-        WindowStyle="None">
+        WindowStyle="None"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*" />
@@ -19,14 +20,8 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <ScrollViewer x:Name="orders_ScrollViewer"
-                          ScrollViewer.CanContentScroll="False">
-                <StackPanel x:Name="orders_StackPanel"
-                            Orientation="Vertical">
-                    
-                </StackPanel>
-            </ScrollViewer>
-            
+            <ListBox x:Name="orders_ListBox" />
+
             <StackPanel Orientation="Vertical"
                         Grid.Row="1">
                 <Button x:Name="logOut_Button"
@@ -37,6 +32,10 @@
                         Click="exit_Button_Click" />
             </StackPanel>
         </Grid>
+
+        <Frame x:Name="Frame"
+               NavigationUIVisibility="Hidden"
+               Grid.Column="1" />
 
     </Grid>
 </Window>

@@ -41,14 +41,14 @@ namespace edok_kiosk.Windows
                 MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            var manager = await ApiClient.JManager.Authenticate(login, password);
+            var manager = await ApiClient._Manager.Authenticate(login, password);
             if (manager == null)
             {
                 MessageBox.Show("Неправильное имя пользователя или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             GlobalViewModel.Manager = manager;
-            GlobalViewModel.Restaurant = await ApiClient.JManager.GetLatestRestaurantById(manager.Id);
+            GlobalViewModel.Restaurant = await ApiClient._Manager.GetLatestRestaurantById(manager.Id);
             new MainWindow().Show();
         }
     }
