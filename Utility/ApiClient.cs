@@ -70,6 +70,22 @@ namespace edok_kiosk.Utility
             }
         }
 
+        public static class _Order
+        {
+            public static async Task<List<CartItem>> GetCartItems(Order order)
+            {
+                return await SendRequest<List<CartItem>>($"cart/{order.CartId}/items", HttpMethod.Get);
+            }
+        }
+
+        public static class _Cart
+        {
+            public static async Task<List<CartItem>> GetCartItems(uint id)
+            {
+                return await SendRequest<List<CartItem>>($"cart/{id}/items", HttpMethod.Get);
+            }
+        }
+
         //public static class _Order
         //{
         //    public static async Task<List<Order>> GetActiveOrders(uint id)

@@ -8,11 +8,17 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <md:BundledTheme BaseTheme="Light"
-                                             PrimaryColor="DeepPurple"
-                                             SecondaryColor="Lime" />
+                                 PrimaryColor="DeepPurple"
+                                 SecondaryColor="Lime" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Image">
+                <Setter Property="RenderOptions.BitmapScalingMode"
+                        Value="HighQuality" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

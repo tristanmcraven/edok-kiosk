@@ -1,0 +1,77 @@
+﻿<Page x:Class="edok_kiosk.Pages.OrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:edok_kiosk.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OrderPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer CanContentScroll="False"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="orderNumber_TextBlock" />
+                <TextBlock x:Name="orderTimestamp_TextBlock" />
+                <TextBlock x:Name="orderAddress_TextBlock" />
+                <TextBlock x:Name="orderPositionsCount_TextBlock" />
+                <Expander x:Name="client_Expander"
+                          Header="Клиент">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Name="clientName_TextBlock" />
+                        <TextBlock x:Name="clientPhone_TextBlock" />
+                        <TextBlock x:Name="clientEmail_TextBlock" />
+                        <TextBlock x:Name="clientOrderCount_TextBlock" />
+                    </StackPanel>
+                </Expander>
+                <Expander x:Name="cart_Expander"
+                          Header="Состав заказа"
+                          IsExpanded="True">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Изображение" />
+                        <TextBlock Text="Название"
+                                   Grid.Column="1" />
+                        <TextBlock Text="Кол-во х Цена"
+                                   Grid.Column="2"/>
+                        <StackPanel x:Name="orderItems_StackPanel"
+                            Orientation="Vertical"
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="3">
+                            
+                        </StackPanel>
+                        <TextBlock Text="ИТОГО:"
+                                   Grid.Row="2"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"/>
+                        <TextBlock x:Name="foodTotal_TextBlock"
+                                   Grid.Row="2"
+                                   Grid.Column="2" />
+                    </Grid>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="1">
+            <Button x:Name="nextStatus_Button"
+                    Click="nextStatus_Button_Click" />
+            <Button x:Name="cancelOrder_Button"
+                    Content="Отменить выполнение заказа"
+                    Click="cancelOrder_Button_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

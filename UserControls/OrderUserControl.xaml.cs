@@ -1,4 +1,5 @@
-﻿using System;
+﻿using edok_kiosk.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,24 @@ namespace edok_kiosk.UserControls
     /// </summary>
     public partial class OrderUserControl : UserControl
     {
-        public OrderUserControl()
+        private Order _order;
+        private List<CartItem> _cartItems;
+        public OrderUserControl(Order order, List<CartItem> cartItems)
         {
             InitializeComponent();
+            _order = order;
+            _cartItems = cartItems;
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            orderNumber_TextBlock.Text = $"Заказ №{_order.Id}";
+            var time = TimeOnly.FromDateTime(_order.CreatedAt);
+            orderTimestamp_TextBlock.Text = $"Время заказа: {time:HH}:{time:mm}:{time:ss}";
+            orderAddress_TextBlock.Text = $"Адрес доставки: {_order.Address}";
+            orderPositionsCount_TextBlock.Text = $"Кол-во позиций: {_cartItems.Count}";
+            orderTotal_TextBlock.Text = $"Сумма: {_order.Total}";
         }
     }
 }
