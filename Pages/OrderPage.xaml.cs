@@ -26,6 +26,9 @@ namespace edok_kiosk.Pages
         private Order _order;
         private User? _client = null;
         private List<CartItem> _cartItems = new();
+        private List<KitchenStatus> _kitchenStatuses = new();
+        private KitchenStatus _currentKitchenStatus = default;
+        private KitchenStatus _nextKitchenStatus = default;
         public OrderPage(Order order)
         {
             InitializeComponent();
@@ -35,6 +38,25 @@ namespace edok_kiosk.Pages
 
         private async void InitUI()
         {
+            nextStatus_Button.Visibility = Visibility.Visible;
+            cancelOrder_Button.Visibility = Visibility.Visible;
+
+            if (_order.Status == "cancelled")
+            {
+                nextStatus_Button.Visibility = Visibility.Collapsed;
+                cancelOrder_Button.Visibility = Visibility.Collapsed;
+            }
+
+            orderStatus_TextBlock.Text = "Статус заказа: ";
+            orderStatus_TextBlock.Text += _order.Status switch
+            {
+                "active" => "Активный",
+                "cancelled" => "Отменён",
+                "finished" => "Доставлен",
+                _ => "Неизвестно"
+            };
+
+
             orderNumber_TextBlock.Text = $"Заказ №{_order.Id}";
             var datetime = _order.CreatedAt;
             var timestamp = TimeOnly.FromDateTime(_order.CreatedAt);
@@ -58,16 +80,49 @@ namespace edok_kiosk.Pages
                 orderItems_StackPanel.Children.Add(new FoodUserControl(food, item));
             }
             foodTotal_TextBlock.Text = $"{_order.Total} РУБ.";
+
+            _kitchenStatuses = await ApiClient._KitchenStatus.Get();
+            _currentKitchenStatus = _kitchenStatuses.FirstOrDefault(x => x.Id == _order.KitchenStatusId);
+            _nextKitchenStatus = _kitchenStatuses.FirstOrDefault(x => x.Id == (_order.KitchenStatusId + 1));
+            if (_nextKitchenStatus == null) _nextKitchenStatus = _kitchenStatuses.Last();
+
+            nextStatus_Button.Content = $"Проставить следующий статус ({_currentKitchenStatus.Name}) -> ({_nextKitchenStatus.Name})";
+
+            if (_order.KitchenStatusId == _kitchenStatuses.Last().Id)
+            {
+                nextStatus_Button.Visibility = Visibility.Collapsed;
+            }
+
+            orderKitchenStatus_TextBlock.Text = $"Внутренний статус заказа: {_currentKitchenStatus.Name}";
+            orderTotalPositionsCount_TextBlock.Text = $"Количество блюд: {_cartItems.Count}";
         }
 
-        private void nextStatus_Button_Click(object sender, RoutedEventArgs e)
+        private async void nextStatus_Button_Click(object sender, RoutedEventArgs e)
         {
+            var result = MessageBox.Show($"Вы уверены, что хотите изменить статус с [{_currentKitchenStatus.Name}] на [{_nextKitchenStatus.Name}]?",
+                        "Подтверждение",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                await ApiClient._Order.ApplyNextStatus(_order.Id);
 
+                _order = await ApiClient._Order.GetById(_order.Id);
+                InitUI();
+            }
         }
 
-        private void cancelOrder_Button_Click(object sender, RoutedEventArgs e)
+        private async void cancelOrder_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            var result = MessageBox.Show($"Вы уверены, что хотите отменить выполнение заказа?",
+            "Подтверждение",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                _order = await ApiClient._Order.CancelOrder(_order.Id);
+                InitUI();
+            }
         }
     }
 }

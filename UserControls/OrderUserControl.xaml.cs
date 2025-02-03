@@ -38,7 +38,7 @@ namespace edok_kiosk.UserControls
             orderTimestamp_TextBlock.Text = $"Время заказа: {time:HH}:{time:mm}:{time:ss}";
             orderAddress_TextBlock.Text = $"Адрес доставки: {_order.Address}";
             orderPositionsCount_TextBlock.Text = $"Кол-во позиций: {_cartItems.Count}";
-            orderTotal_TextBlock.Text = $"Сумма: {_order.Total}";
+            orderTotal_TextBlock.Text = $"Сумма: {_order.Total}₽";
         }
     }
 }

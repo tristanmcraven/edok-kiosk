@@ -7,19 +7,30 @@
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Авторизация" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
     <Grid>
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="350">
             <TextBlock Text="Введите логин и пароль от учетной записи менеджера вашего ресторана."
-                       TextWrapping="Wrap" />
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       FontSize="18"
+                       Margin="0 0 0 15"/>
             <TextBox x:Name="login_TextBox"
-                     md:HintAssist.Hint="Логин"/>
+                     md:HintAssist.Hint="Логин"
+                     Margin="0 0 0 10"/>
             <PasswordBox x:Name="passwordBox"
                          md:HintAssist.Hint="Пароль"
-                         KeyDown="passwordBox_KeyDown"/>
+                         KeyDown="passwordBox_KeyDown"
+                         Margin="0 0 0 20"
+                         Foreground="Black"/>
             <Button x:Name="logIn_Button"
                     Content="Войти"
-                    Click="logIn_Button_Click"/>
+                    Click="logIn_Button_Click"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}"/>
         </StackPanel>
     </Grid>
 </Window>

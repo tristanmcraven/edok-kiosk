@@ -12,6 +12,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="75*" />
         </Grid.ColumnDefinitions>
         <Grid>
@@ -21,22 +22,34 @@
             </Grid.RowDefinitions>
 
             <ListBox x:Name="orders_ListBox"
-                     SelectionChanged="orders_ListBox_SelectionChanged"/>
+                     SelectionChanged="orders_ListBox_SelectionChanged"
+                     ScrollViewer.CanContentScroll="False"/>
 
-            <StackPanel Orientation="Vertical"
-                        Grid.Row="1">
-                <Button x:Name="logOut_Button"
-                        Content="Сменить пользователя"
-                        Click="logOut_Button_Click" />
-                <Button x:Name="exit_Button"
-                        Content="Выйти"
-                        Click="exit_Button_Click" />
-            </StackPanel>
+            <Grid Grid.Row="1"
+                  Background="DarkGray">
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="1"
+                            Margin="15 10">
+                    <Button x:Name="logOut_Button"
+                            Content="Сменить пользователя"
+                            Click="logOut_Button_Click"
+                            Margin="0 0 0 10" />
+                    <Button x:Name="exit_Button"
+                            Content="Выйти"
+                            Click="exit_Button_Click" />
+                </StackPanel>
+            </Grid>
+
+
         </Grid>
+
+        <Border Background="Black"
+                Width="1"
+                Grid.Column="1" />
 
         <Frame x:Name="Frame"
                NavigationUIVisibility="Hidden"
-               Grid.Column="1" />
+               Grid.Column="2"/>
 
     </Grid>
 </Window>

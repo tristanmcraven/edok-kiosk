@@ -50,6 +50,8 @@ namespace edok_kiosk.Windows
             GlobalViewModel.Manager = manager;
             GlobalViewModel.Restaurant = await ApiClient._Manager.GetLatestRestaurantById(manager.Id);
             new MainWindow().Show();
+
+            Close();
         }
 
         private void passwordBox_KeyDown(object sender, KeyEventArgs e)
@@ -58,6 +60,11 @@ namespace edok_kiosk.Windows
             {
                 logIn_Button_Click(null, null);
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            login_TextBox.Focus();
         }
     }
 }

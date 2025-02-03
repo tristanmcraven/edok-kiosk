@@ -81,7 +81,7 @@ namespace edok_kiosk.Windows
             while (true)
             {
                 //_orders = new ObservableCollection<Order>(await ApiClient._Restaurant.GetActiveOrders(GlobalViewModel.Restaurant.Id));
-                var newOrders = await ApiClient._Restaurant.GetActiveOrders(GlobalViewModel.Restaurant.Id);
+                var newOrders = await ApiClient._Restaurant.GetOrders(GlobalViewModel.Restaurant.Id);
 
                 var addedOrders = newOrders.Except(_orders, new OrderComparer()).ToList();
                 var removedOrders = _orders.Except(newOrders, new OrderComparer()).ToList();

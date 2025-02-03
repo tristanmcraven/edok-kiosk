@@ -32,11 +32,13 @@ namespace edok_kiosk.UserControls
             InitUI();
         }
 
-        private void InitUI()
+        private async void InitUI()
         {
             food_Image.Source = ImageHelper.GetImage(_food.Photo);
-            foodCount_TextBlock.Text = _cartItem.FoodQuantity.ToString();
-            foodPrice_TextBlock.Text = _food.Price.ToString();
+            foodCount_TextBlock.Text = _cartItem.FoodQuantity.ToString() + " ШТ.";
+            foodPrice_TextBlock.Text = _food.Price.ToString() + " РУБ.";
+            foodName_TextBlock.Text = _food.Name.ToUpper();
+            foodCategory_TextBlock.Text = "Категория: " + (await ApiClient._FoodCategory.GetById(_food.FoodCategoryId)).Name;
         }
     }
 }

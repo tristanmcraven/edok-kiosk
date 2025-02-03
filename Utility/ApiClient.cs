@@ -68,6 +68,11 @@ namespace edok_kiosk.Utility
             {
                 return await SendRequest<List<Order>>($"restaurant/{id}/orders/active", HttpMethod.Get);
             }
+
+            public static async Task<List<Order>> GetOrders(uint id)
+            {
+                return await SendRequest<List<Order>>($"restaurant/{id}/orders", HttpMethod.Get);
+            }
         }
 
         public static class _Order
@@ -75,6 +80,21 @@ namespace edok_kiosk.Utility
             public static async Task<List<CartItem>> GetCartItems(Order order)
             {
                 return await SendRequest<List<CartItem>>($"cart/{order.CartId}/items", HttpMethod.Get);
+            }
+
+            public static async Task<Order> ApplyNextStatus(uint id)
+            {
+                return await SendRequest<Order>($"order/{id}/next_status", HttpMethod.Put);
+            }
+
+            public static async Task<Order> GetById(uint id)
+            {
+                return await SendRequest<Order>($"order/{id}", HttpMethod.Get);
+            }
+
+            public static async Task<Order> CancelOrder(uint id)
+            {
+                return await SendRequest<Order>($"order/{id}/cancel", HttpMethod.Put);
             }
         }
 
@@ -104,6 +124,22 @@ namespace edok_kiosk.Utility
             public static async Task<Food> GetById(uint id)
             {
                 return await SendRequest<Food>($"food/{id}", HttpMethod.Get);
+            }
+        }
+
+        public static class _KitchenStatus
+        {
+            public static async Task<List<KitchenStatus>> Get()
+            {
+                return await SendRequest<List<KitchenStatus>>("kitchenstatus", HttpMethod.Get);
+            }
+        }
+
+        public static class _FoodCategory
+        {
+            public static async Task<FoodCategory> GetById(uint id)
+            {
+                return await SendRequest<FoodCategory>($"foodcategory/{id}", HttpMethod.Get);
             }
         }
     }

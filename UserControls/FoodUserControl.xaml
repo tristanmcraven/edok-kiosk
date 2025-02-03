@@ -5,24 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:edok_kiosk.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             Margin="0 0 0 20"
+             BorderBrush="Gray"
+             BorderThickness="1"
+             Background="LightGoldenrodYellow">
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="12.5*" />
+            <ColumnDefinition Width="63.75*" />
+            <ColumnDefinition Width="23.75*" />
         </Grid.ColumnDefinitions>
         <Image x:Name="food_Image" />
         <StackPanel Orientation="Vertical"
-                    Grid.Column="1">
-            <TextBlock x:Name="foodName_TextBlock" />
+                    Grid.Column="1"
+                    Margin="25 5 0 0">
+            <TextBlock x:Name="foodName_TextBlock"
+                       FontSize="26"
+                       FontFamily="{StaticResource medium}"/>
             <TextBlock x:Name="foodCategory_TextBlock" />
         </StackPanel>
         <StackPanel Orientation="Horizontal"
                     Grid.Column="2">
-            <TextBlock x:Name="foodCount_TextBlock" />
-            <TextBlock Text="x" />
-            <TextBlock x:Name="foodPrice_TextBlock" />
+            <TextBlock x:Name="foodCount_TextBlock"
+                       FontSize="22"
+                       VerticalAlignment="Center"
+                       FontFamily="{StaticResource bold}"/>
+            <TextBlock Text="  x  "
+                       FontSize="22"
+                       VerticalAlignment="Center"/>
+            <TextBlock x:Name="foodPrice_TextBlock"
+                       FontSize="22"
+                       VerticalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </UserControl>
