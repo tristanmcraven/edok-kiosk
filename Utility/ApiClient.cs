@@ -86,12 +86,25 @@ namespace edok_kiosk.Utility
             }
         }
 
-        //public static class _Order
-        //{
-        //    public static async Task<List<Order>> GetActiveOrders(uint id)
-        //    {
-        //        return await SendRequest<List<Order>>("restaurant")
-        //    }
-        //}
+        public static class _User
+        {
+            public static async Task<User> GetUserById(uint id)
+            {
+                return await SendRequest<User>($"user/{id}", HttpMethod.Get);
+            }
+
+            public static async Task<List<Order>> GetOrders(uint id)
+            {
+                return await SendRequest<List<Order>>($"user/{id}/orders", HttpMethod.Get);
+            }
+        }
+
+        public static class _Food
+        {
+            public static async Task<Food> GetById(uint id)
+            {
+                return await SendRequest<Food>($"food/{id}", HttpMethod.Get);
+            }
+        }
     }
 }

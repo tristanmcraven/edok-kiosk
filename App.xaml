@@ -14,10 +14,23 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!--Fonts definition-->
+            <FontFamily x:Key="thin">pack://application:,,,/Assets/Fonts/#Yandex Sans Text Thin</FontFamily>
+            <FontFamily x:Key="light">pack://application:,,,/Assets/Fonts/#Yandex Sans Text Light</FontFamily>
+            <FontFamily x:Key="regular">pack://application:,,,/Assets/Fonts/#Yandex Sans Text Regular</FontFamily>
+            <FontFamily x:Key="medium">pack://application:,,,/Assets/Fonts/#Yandex Sans Text Medium</FontFamily>
+            <FontFamily x:Key="bold">pack://application:,,,/Assets/Fonts/#Yandex Sans Text Bold</FontFamily>
+
             <Style TargetType="Image">
                 <Setter Property="RenderOptions.BitmapScalingMode"
                         Value="HighQuality" />
             </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource regular}" />
+            </Style>
+            
 
         </ResourceDictionary>
     </Application.Resources>

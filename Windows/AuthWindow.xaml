@@ -15,7 +15,8 @@
             <TextBox x:Name="login_TextBox"
                      md:HintAssist.Hint="Логин"/>
             <PasswordBox x:Name="passwordBox"
-                         md:HintAssist.Hint="Пароль" />
+                         md:HintAssist.Hint="Пароль"
+                         KeyDown="passwordBox_KeyDown"/>
             <Button x:Name="logIn_Button"
                     Content="Войти"
                     Click="logIn_Button_Click"/>

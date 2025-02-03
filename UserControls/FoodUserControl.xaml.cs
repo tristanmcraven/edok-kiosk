@@ -1,4 +1,6 @@
-﻿using System;
+﻿using edok_kiosk.Model;
+using edok_kiosk.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,21 @@ namespace edok_kiosk.UserControls
     /// </summary>
     public partial class FoodUserControl : UserControl
     {
-        public FoodUserControl()
+        private Food _food;
+        private CartItem _cartItem;
+        public FoodUserControl(Food food, CartItem cartItem)
         {
             InitializeComponent();
+            _food = food;
+            _cartItem = cartItem;
+            InitUI();
+        }
+
+        private void InitUI()
+        {
+            food_Image.Source = ImageHelper.GetImage(_food.Photo);
+            foodCount_TextBlock.Text = _cartItem.FoodQuantity.ToString();
+            foodPrice_TextBlock.Text = _food.Price.ToString();
         }
     }
 }

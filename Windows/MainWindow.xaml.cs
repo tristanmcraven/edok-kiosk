@@ -18,6 +18,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using edok_kiosk.Misc;
 using edok_kiosk.UserControls;
+using edok_kiosk.Pages;
 
 namespace edok_kiosk.Windows
 {
@@ -95,11 +96,24 @@ namespace edok_kiosk.Windows
 
         private async void AddOrderNotification(List<Order> orders)
         {
-            foreach (var order in orders)
+            var ordersSorted = orders.OrderByDescending(x => x.Id);
+            foreach (var order in ordersSorted)
             {
                 var cartItems = await ApiClient._Order.GetCartItems(order);
                 orders_ListBox.Items.Add(new OrderUserControl(order, cartItems));
             }
         }
+
+        private void orders_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var lb = sender as ListBox;
+            var selectedItem = lb.SelectedItem;
+            if (selectedItem != null)
+            {
+                var order = selectedItem as OrderUserControl;
+                PageManager.MainFrame.Navigate(new OrderPage(order._order));
+            }
+        }
+
     }
 }

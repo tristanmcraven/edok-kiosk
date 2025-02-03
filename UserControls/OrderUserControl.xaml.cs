@@ -21,7 +21,7 @@ namespace edok_kiosk.UserControls
     /// </summary>
     public partial class OrderUserControl : UserControl
     {
-        private Order _order;
+        public Order _order;
         private List<CartItem> _cartItems;
         public OrderUserControl(Order order, List<CartItem> cartItems)
         {

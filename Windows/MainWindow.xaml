@@ -20,7 +20,8 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <ListBox x:Name="orders_ListBox" />
+            <ListBox x:Name="orders_ListBox"
+                     SelectionChanged="orders_ListBox_SelectionChanged"/>
 
             <StackPanel Orientation="Vertical"
                         Grid.Row="1">

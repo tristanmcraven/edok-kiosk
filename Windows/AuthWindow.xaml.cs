@@ -51,5 +51,13 @@ namespace edok_kiosk.Windows
             GlobalViewModel.Restaurant = await ApiClient._Manager.GetLatestRestaurantById(manager.Id);
             new MainWindow().Show();
         }
+
+        private void passwordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                logIn_Button_Click(null, null);
+            }
+        }
     }
 }
