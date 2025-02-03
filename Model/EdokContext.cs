@@ -26,6 +26,8 @@ public partial class EdokContext : DbContext
 
     public virtual DbSet<FoodCategory> FoodCategories { get; set; }
 
+    public virtual DbSet<KitchenStatus> KitchenStatuses { get; set; }
+
     public virtual DbSet<Manager> Managers { get; set; }
 
     public virtual DbSet<Moderator> Moderators { get; set; }
@@ -94,7 +96,9 @@ public partial class EdokContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CartId).HasColumnName("cart_id");
             entity.Property(e => e.FoodId).HasColumnName("food_id");
-            entity.Property(e => e.FoodQuantity).HasColumnName("food_quantity");
+            entity.Property(e => e.FoodQuantity)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("food_quantity");
             entity.Property(e => e.UtensilsQuantity)
                 .HasDefaultValueSql("'1'")
                 .HasColumnName("utensils_quantity");
@@ -171,6 +175,22 @@ public partial class EdokContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
+                .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<KitchenStatus>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("kitchen_status");
+
+            entity.HasIndex(e => e.Id, "id_UNIQUE").IsUnique();
+
+            entity.HasIndex(e => e.Name, "name_UNIQUE").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
                 .HasColumnName("name");
         });
 
@@ -261,6 +281,8 @@ public partial class EdokContext : DbContext
 
             entity.HasIndex(e => e.CartId, "fk_order_cart_id_idx");
 
+            entity.HasIndex(e => e.KitchenStatusId, "fk_order_ks_id_idx");
+
             entity.HasIndex(e => e.RestaurantId, "fk_order_restaurant_id_idx");
 
             entity.HasIndex(e => e.UserId, "fk_order_user_id_idx");
@@ -282,6 +304,9 @@ public partial class EdokContext : DbContext
             entity.Property(e => e.DeliveredAt)
                 .HasColumnType("datetime")
                 .HasColumnName("delivered_at");
+            entity.Property(e => e.KitchenStatusId)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("kitchen_status_id");
             entity.Property(e => e.RestaurantId).HasColumnName("restaurant_id");
             entity.Property(e => e.Status)
                 .HasDefaultValueSql("'active'")
@@ -294,6 +319,10 @@ public partial class EdokContext : DbContext
                 .HasForeignKey(d => d.CartId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_order_cart_id");
+
+            entity.HasOne(d => d.KitchenStatus).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.KitchenStatusId)
+                .HasConstraintName("fk_order_ks_id");
 
             entity.HasOne(d => d.Restaurant).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.RestaurantId)

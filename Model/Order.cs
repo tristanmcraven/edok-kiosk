@@ -25,7 +25,11 @@ public partial class Order
 
     public uint? Total { get; set; }
 
+    public uint? KitchenStatusId { get; set; }
+
     public virtual Cart Cart { get; set; } = null!;
+
+    public virtual KitchenStatus? KitchenStatus { get; set; }
 
     public virtual Restaurant Restaurant { get; set; } = null!;
 
