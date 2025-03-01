@@ -96,11 +96,11 @@ namespace edok_kiosk.Windows
 
         private async void AddOrderNotification(List<Order> orders)
         {
-            var ordersSorted = orders.OrderByDescending(x => x.Id);
+            var ordersSorted = orders.OrderBy(x => x.Id);
             foreach (var order in ordersSorted)
             {
                 var cartItems = await ApiClient._Order.GetCartItems(order);
-                orders_ListBox.Items.Add(new OrderUserControl(order, cartItems));
+                orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
             }
         }
 

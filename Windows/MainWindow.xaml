@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:edok_kiosk.Windows"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Киоск" Height="450" Width="800"
         WindowState="Maximized"
@@ -23,7 +24,22 @@
 
             <ListBox x:Name="orders_ListBox"
                      SelectionChanged="orders_ListBox_SelectionChanged"
-                     ScrollViewer.CanContentScroll="False"/>
+                     ScrollViewer.CanContentScroll="False">
+                <ListBox.Resources>
+                    <Style TargetType="ScrollViewer"
+                           BasedOn="{StaticResource MaterialDesignScrollViewer}">
+                        <Setter Property="md:ScrollViewerAssist.IsAutoHideEnabled"
+                                Value="True" />
+                    </Style>
+                    <Style TargetType="ScrollBar"
+                           BasedOn="{StaticResource MaterialDesignScrollBarMinimal}">
+                        <Setter Property="md:ScrollBarAssist.ThumbCornerRadius"
+                                Value="6" />
+                        <Setter Property="Margin"
+                                Value="0 10" />
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
 
             <Grid Grid.Row="1"
                   Background="DarkGray">
