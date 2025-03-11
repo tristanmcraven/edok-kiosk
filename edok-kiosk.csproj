@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>spiral-30-svgrepo-com.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,10 @@
     <None Remove="Assets\Fonts\YandexSansText-Medium.ttf" />
     <None Remove="Assets\Fonts\YandexSansText-Regular.ttf" />
     <None Remove="Assets\Fonts\YandexSansText-Thin.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="spiral-30-svgrepo-com.ico" />
   </ItemGroup>
 
   <ItemGroup>

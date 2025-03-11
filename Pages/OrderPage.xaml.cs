@@ -68,7 +68,7 @@ namespace edok_kiosk.Pages
 
             _client = await ApiClient._User.GetUserById(_order.UserId);
             clientName_TextBlock.Text = $"Имя: {_client.Surname} {_client.Name}";
-            clientPhone_TextBlock.Text = $"Номер телефона: +7{_client.PhoneNumber}";
+            clientPhone_TextBlock.Text = $"Номер телефона: {_client.PhoneNumber}";
             clientEmail_TextBlock.Text = $"Электронная почта: ";
             clientEmail_TextBlock.Text += _client.Email != null ? $"{_client.Email}" : "Не указана";
             clientOrderCount_TextBlock.Text = $"Количество заказов: {(await ApiClient._User.GetOrders(_client.Id)).Count()}";
@@ -117,7 +117,7 @@ namespace edok_kiosk.Pages
             var result = MessageBox.Show($"Вы уверены, что хотите отменить выполнение заказа?",
             "Подтверждение",
             MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
+            MessageBoxImage.Asterisk);
             if (result == MessageBoxResult.Yes)
             {
                 _order = await ApiClient._Order.CancelOrder(_order.Id);
