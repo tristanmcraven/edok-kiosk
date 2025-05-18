@@ -95,6 +95,7 @@ namespace edok_kiosk.Pages
             if (_order.KitchenStatusId == _kitchenStatuses.Last().Id)
             {
                 nextStatus_Button.Visibility = Visibility.Collapsed;
+                cancelOrder_Button.Visibility= Visibility.Collapsed;
             }
 
             orderKitchenStatus_TextBlock.Text = $"Внутренний статус заказа: {_currentKitchenStatus.Name}";
