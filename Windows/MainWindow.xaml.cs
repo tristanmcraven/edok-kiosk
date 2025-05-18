@@ -110,8 +110,8 @@ namespace edok_kiosk.Windows
             var selectedItem = lb.SelectedItem;
             if (selectedItem != null)
             {
-                var order = selectedItem as OrderUserControl;
-                PageManager.MainFrame.Navigate(new OrderPage(order._order));
+                var orderUc = selectedItem as OrderUserControl;
+                PageManager.MainFrame.Navigate(new OrderPage(orderUc._order.Id));
             }
         }
 

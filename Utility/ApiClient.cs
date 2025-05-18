@@ -12,7 +12,7 @@ namespace edok_kiosk.Utility
 {
     public static class ApiClient
     {
-        public static readonly string _apiPath = "http://localhost:5224/api/";
+        public static readonly string _apiPath = "http://194.164.235.50:5224/api/";
         public static HttpClient httpClient = new HttpClient();
 
         private static async Task<T?> SendRequest<T>(string url, HttpMethod httpMethod, object? body = null)
@@ -69,9 +69,9 @@ namespace edok_kiosk.Utility
                 return await SendRequest<List<Order>>($"restaurant/{id}/orders/active", HttpMethod.Get);
             }
 
-            public static async Task<List<Order>> GetOrders(uint id)
+            public static async Task<List<Order>> GetOrders(uint managerId)
             {
-                return await SendRequest<List<Order>>($"restaurant/{id}/orders", HttpMethod.Get);
+                return await SendRequest<List<Order>>($"manager/{managerId}/orders", HttpMethod.Get);
             }
         }
 

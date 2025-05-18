@@ -29,15 +29,19 @@ namespace edok_kiosk.Pages
         private List<KitchenStatus> _kitchenStatuses = new();
         private KitchenStatus _currentKitchenStatus = default;
         private KitchenStatus _nextKitchenStatus = default;
-        public OrderPage(Order order)
+
+        private uint _orderId;
+        public OrderPage(uint orderId)
         {
             InitializeComponent();
-            _order = order;
+            _orderId = orderId;
             InitUI();
         }
 
         private async void InitUI()
         {
+            await FetchData();
+
             nextStatus_Button.Visibility = Visibility.Visible;
             cancelOrder_Button.Visibility = Visibility.Visible;
 
@@ -95,6 +99,11 @@ namespace edok_kiosk.Pages
 
             orderKitchenStatus_TextBlock.Text = $"Внутренний статус заказа: {_currentKitchenStatus.Name}";
             orderTotalPositionsCount_TextBlock.Text = $"Количество блюд: {_cartItems.Count}";
+        }
+
+        private async Task FetchData()
+        {
+            _order = await ApiClient._Order.GetById(_orderId);
         }
 
         private async void nextStatus_Button_Click(object sender, RoutedEventArgs e)
