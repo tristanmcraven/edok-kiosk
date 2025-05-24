@@ -1,24 +1,10 @@
-﻿using edok_kiosk.Model;
+﻿using edok_kiosk.Misc;
+using edok_kiosk.Model;
+using edok_kiosk.Pages;
+using edok_kiosk.UserControls;
 using edok_kiosk.Utility;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Collections;
-using System.Collections.Specialized;
-using edok_kiosk.Misc;
-using edok_kiosk.UserControls;
-using edok_kiosk.Pages;
 
 namespace edok_kiosk.Windows
 {
@@ -32,6 +18,9 @@ namespace edok_kiosk.Windows
         public MainWindow()
         {
             InitializeComponent();
+            sort_ComboBox.SelectionChanged -= sort_ComboBox_SelectionChanged;
+            sort_ComboBox.SelectedIndex = 0;
+            sort_ComboBox.SelectionChanged += sort_ComboBox_SelectionChanged;
             //_orders.CollectionChanged += _orders_CollectionChanged;
         }
 
@@ -100,7 +89,24 @@ namespace edok_kiosk.Windows
             foreach (var order in ordersSorted)
             {
                 var cartItems = await ApiClient._Order.GetCartItems(order);
-                orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                switch (sort_ComboBox.SelectedIndex)
+                {
+                    case 0:
+                        orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                        break;
+                    case 1:
+                        if (order.Status == "active")
+                            orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                        break;
+                    case 2:
+                        if (order.Status == "finished")
+                            orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                        break;
+                    case 3:
+                        if (order.Status == "cancelled")
+                            orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                        break;
+                }
             }
         }
 
@@ -115,5 +121,52 @@ namespace edok_kiosk.Windows
             }
         }
 
+        private async void sort_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (sort_ComboBox.SelectedIndex)
+            {
+                case 0:
+                    orders_ListBox.Items.Clear();
+                    foreach (var order in _orders)
+                    {
+                        var cartItems = await ApiClient._Order.GetCartItems(order);
+                        orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                    }
+                    break;
+                case 1:
+                    orders_ListBox.Items.Clear();
+                    foreach (var order in _orders)
+                    {
+                        if (order.Status == "active")
+                        {
+                            var cartItems = await ApiClient._Order.GetCartItems(order);
+                            orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                        }
+                    }
+                    break;
+                case 2:
+                    orders_ListBox.Items.Clear();
+                    foreach (var order in _orders)
+                    {
+                        if (order.Status == "finished")
+                        {
+                            var cartItems = await ApiClient._Order.GetCartItems(order);
+                            orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                        }
+                    }
+                    break;
+                case 3:
+                    orders_ListBox.Items.Clear();
+                    foreach (var order in _orders)
+                    {
+                        if (order.Status == "cancelled")
+                        {
+                            var cartItems = await ApiClient._Order.GetCartItems(order);
+                            orders_ListBox.Items.Insert(0, new OrderUserControl(order, cartItems));
+                        }
+                    }
+                    break;
+            }
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace edok_kiosk.Pages
             orderNumber_TextBlock.Text = $"Заказ №{_order.Id}";
             var datetime = _order.CreatedAt;
             var timestamp = TimeOnly.FromDateTime(_order.CreatedAt);
-            orderTimestamp_TextBlock.Text = $"Дата и время заказа: {timestamp:HH}:{timestamp:mm}:{timestamp:ss} {datetime:dd}/{datetime:MM}/{datetime:yyyy}";
+            orderTimestamp_TextBlock.Text = $"Дата и время заказа: {timestamp:HH:mm:ss} {datetime:dd/MM/yyyy}";
             orderAddress_TextBlock.Text = $"Адрес доставки: {_order.Address}";
             _cartItems = await ApiClient._Order.GetCartItems(_order);
             var count = (_cartItems.Select(x => (int)x.FoodQuantity)).Sum();
