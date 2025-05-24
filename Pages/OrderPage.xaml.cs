@@ -1,6 +1,7 @@
 ﻿using edok_kiosk.Model;
 using edok_kiosk.UserControls;
 using edok_kiosk.Utility;
+using edok_kiosk.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,6 +117,26 @@ namespace edok_kiosk.Pages
             if (result == MessageBoxResult.Yes)
             {
                 await ApiClient._Order.ApplyNextStatus(_order.Id);
+                if (_order.KitchenStatusId == 4)
+                {
+                    var cb = WindowManager.Get<MainWindow>().sort_ComboBox;
+                    if (cb.SelectedIndex == 1)
+                    {
+                        var lb = WindowManager.Get<MainWindow>().orders_ListBox;
+                        OrderUserControl removableOrderUc = default;
+                        foreach (var item in lb.Items)
+                        {
+                            var orderUc = item as OrderUserControl;
+                            if (orderUc._order.Id == _order.Id)
+                            {
+                                removableOrderUc = orderUc;
+                            }
+                        }
+
+                        lb.Items.Remove(removableOrderUc);
+                    }
+
+                }
 
                 _order = await ApiClient._Order.GetById(_order.Id);
                 InitUI();
